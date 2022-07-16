@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  image     String?
+  bio       String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relations
+  Post Post[]
+}
+
+model Post {
+  id        String  @id @default(cuid())
+  title     String
+  slug      String  @unique
+  content   String  @db.MediumText
+  published Boolean @default(false)
+
+  // relations
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@index([authorId])
+  @@fulltext([content])
+  @@fulltext([content, title])
+}
