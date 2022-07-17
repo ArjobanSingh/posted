@@ -22,7 +22,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   // relations
-  Post Post[]
+  posts Post[]
 }
 
 model Post {
@@ -35,9 +35,9 @@ model Post {
   bannerPublicId String?
 
   // relations
-  author      User          @relation(fields: [authorId], references: [id])
-  authorId    String
-  TagsOnPosts TagsOnPosts[]
+  author   User          @relation(fields: [authorId], references: [id])
+  authorId String
+  tags     TagsOnPosts[]
 
   @@index([authorId])
   @@fulltext([content])
@@ -45,9 +45,9 @@ model Post {
 }
 
 model Tag {
-  name        String        @id @unique
-  createdAt   DateTime      @default(now())
-  TagsOnPosts TagsOnPosts[]
+  name      String        @id @unique
+  createdAt DateTime      @default(now())
+  posts     TagsOnPosts[]
 }
 
 model TagsOnPosts {
