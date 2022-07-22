@@ -26,13 +26,15 @@ model User {
 }
 
 model Post {
-  id             String  @id @default(cuid())
+  id             String   @id @default(cuid())
   title          String
-  slug           String  @unique
-  content        String  @db.MediumText
-  published      Boolean @default(false)
+  slug           String   @unique
+  content        String   @db.MediumText
+  published      Boolean  @default(false)
   bannerUrl      String?
   bannerPublicId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   // relations
   author   User          @relation(fields: [authorId], references: [id])

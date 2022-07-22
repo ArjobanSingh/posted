@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import prisma from "./prisma";
 
 const NUMBER_OF_USERS = 10;
-const MAX_POSTS_PER_USER = 10;
+const MAX_POSTS_PER_USER = 15;
 const MAX_PARAGRAPHS_PER_POST = 20;
 const MAX_WORDS_PER_TITLE = 10;
 const MAX_TAGS_PER_POST = 5;

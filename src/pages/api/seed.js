@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-// import main from "../../lib/seed";
+import main from "../../lib/seed";
 
 export default async function handler(_req, res) {
   try {
