@@ -21,10 +21,13 @@ export async function getLatestPostsFromDb() {
 
 export default async function handler(_req, res) {
   try {
+    await new Promise((r) => {
+      setTimeout(r, 500);
+    });
     const allLatestPosts = await getLatestPostsFromDb();
     res.status(200).json(allLatestPosts);
   } catch (err) {
-    console.log("Custom Error!!!!!!!!!!!!!!!!!!!", err);
+    console.log("database error!!!!!!!!!!!!!!!!!!!", err);
     res.status(500).json(err);
   }
 }
