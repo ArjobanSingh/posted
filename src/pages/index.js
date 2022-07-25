@@ -16,12 +16,9 @@ async function getLatestPosts() {
 
 // will add on demand ISR to update this on new post
 export default function Home() {
-  const { data, error, isLoading } = useQuery(["latest-posts"], getLatestPosts);
-
   // if api failed in on demand ISR builing, we should have loading
   // and error checks on client to handle client api
-  if (isLoading) return <div>TODO: Loading...</div>;
-  if (!data && error) return <div>TODO: {error}</div>;
+  const { data, error, isLoading } = useQuery(["latest-posts"], getLatestPosts);
 
   return (
     <>
@@ -33,7 +30,11 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainPageWrapper posts={data} />
+      <MainPageWrapper
+        posts={data}
+        isPostsLoading={isLoading}
+        postsError={!data && error ? error : ""}
+      />
     </>
   );
 }

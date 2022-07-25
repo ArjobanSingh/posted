@@ -7,6 +7,11 @@ export async function getLatestPostsFromDb() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      author: {
+        select: { id: true, image: true, name: true },
+      },
+    },
   });
 
   // can mutate post here, as it does not matter

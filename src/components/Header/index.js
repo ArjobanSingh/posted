@@ -6,7 +6,7 @@ import MaxWidthContainer from "../common/MaxWidthContainer";
 
 function Header(props) {
   return (
-    <header className="sticky top-0 left-0 right-0 shadow-sm bg-white">
+    <header className="sticky top-0 left-0 right-0 shadow-sm bg-white z-20">
       <MaxWidthContainer>
         <div className="flex justify-between items-center px-4 py-2 h-14">
           <div className="flex items-center h-full">

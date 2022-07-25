@@ -20,15 +20,16 @@ function FollowingPosts(props) {
     getLatestPosts
   );
 
-  if (isLoading) return <div>TODO: Loading...</div>;
-  if (!data && error) return <div>TODO: {error}</div>;
-
   return (
     <>
       <Head>
         <title>Posted: Posts of followed people</title>
       </Head>
-      <MainPageWrapper posts={data} />
+      <MainPageWrapper
+        posts={data}
+        isPostsLoading={isLoading}
+        postsError={!data && error ? error : ""}
+      />
     </>
   );
 }

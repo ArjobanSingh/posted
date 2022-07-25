@@ -2,8 +2,8 @@ import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
 import prisma from "./prisma";
 
-const NUMBER_OF_USERS = 10;
-const MAX_POSTS_PER_USER = 15;
+const NUMBER_OF_USERS = 5;
+const MAX_POSTS_PER_USER = 10;
 const MAX_PARAGRAPHS_PER_POST = 20;
 const MAX_WORDS_PER_TITLE = 10;
 const MAX_TAGS_PER_POST = 5;
@@ -38,7 +38,7 @@ const getUsers = () => {
     email: faker.internet.email(),
     name: faker.name.firstName(),
     bio: faker.lorem.paragraphs(),
-    image: faker.internet.avatar(),
+    image: faker.image.avatar(),
     posts: {
       create: postsArray.map(() => {
         const title = faker.lorem.words(
@@ -63,9 +63,7 @@ const getUsers = () => {
           title,
           slug,
           published: true,
-          bannerUrl: isEven(faker.random.numeric())
-            ? faker.image.imageUrl(1920, 720)
-            : null,
+          bannerUrl: faker.image.nature(1920, 720, true),
           tags: {
             create: tagsForThisPostArr.map(() => {
               const indexOfTagToUse = faker.datatype.number({
