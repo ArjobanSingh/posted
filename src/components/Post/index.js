@@ -2,7 +2,9 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { DEFAULT_BANNER_URL } from "../../constants/images";
+import { handleEnter, stopPropagation } from "../../lib/common";
 
 // TODO: add placeholder image, and change img to Image
 function Post(props) {
@@ -10,10 +12,13 @@ function Post(props) {
   const {
     bannerUrl,
     title,
+    slug,
     createdAt,
+    tags,
     author: { name: authorName, image: authorImage, id: authorId },
   } = post;
   console.log({ post });
+  const router = useRouter();
 
   const [formattedDate, capitalizedTitle] = useMemo(
     () => [
@@ -23,9 +28,19 @@ function Post(props) {
     [title, createdAt]
   );
 
+  const openPost = (e) => {
+    router.push(`/${slug}`);
+  };
+
   return (
-    <div className="mb-2 w-full flex flex-col gap-2 p-3 bg-white rounded-lg shadow-sm border border-gray-200">
-      <figure className="w-full h-56 relative rounded">
+    <div
+      className="mb-2 w-full flex flex-col gap-2 p-4 bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer"
+      role="button"
+      onClick={openPost}
+      tabIndex={0}
+      onKeyDown={handleEnter(openPost)}
+    >
+      <figure className="w-full h-52 relative rounded">
         <Image
           src={bannerUrl ?? DEFAULT_BANNER_URL}
           alt={post.title}
@@ -43,13 +58,47 @@ function Post(props) {
           className="w-8 h-8 rounded-full"
         />
         <div>
-          <Link href={`/${authorId}`}>
-            <a className="text-sm font-medium">{authorName}</a>
-          </Link>
+          <div
+            onClick={stopPropagation}
+            onKeyDown={handleEnter(stopPropagation)}
+            role="presentation"
+          >
+            <Link href={`/author/${authorId}`}>
+              <a className="text-sm font-medium">{authorName}</a>
+            </Link>
+          </div>
           <p className="text-xs text-gray-700">{formattedDate}</p>
         </div>
       </div>
-      <h3 className="text-2xl font-bold">{capitalizedTitle}</h3>
+
+      <div
+        className="flex flex-col gap-2"
+        onClick={stopPropagation}
+        onKeyDown={handleEnter(stopPropagation)}
+        role="presentation"
+      >
+        <h3 className="text-2xl font-bold hover:text-blue-500">
+          <Link href={`/${slug}`}>
+            <a>{capitalizedTitle}</a>
+          </Link>
+        </h3>
+      </div>
+
+      <ul className="flex gap-2">
+        {tags.map((tag) => (
+          <li
+            key={tag.tagName}
+            className="border border-white px-1 hover:border-gray-300 rounded-md flex flex-col justify-center"
+            onClick={stopPropagation}
+            onKeyDown={handleEnter(stopPropagation)}
+            role="presentation"
+          >
+            <Link href={`/tag/${tag.tagName}`}>
+              <a>#{tag.tagName}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -57,13 +106,15 @@ function Post(props) {
 Post.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     bannerUrl: PropTypes.string,
     createdAt: PropTypes.number.isRequired,
-    author: {
+    author: PropTypes.shape({
       image: PropTypes.string,
       name: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
-    },
+    }),
+    tags: PropTypes.arrayOf(PropTypes.shape({ tagName: PropTypes.string })),
   }).isRequired,
 };
 export default Post;

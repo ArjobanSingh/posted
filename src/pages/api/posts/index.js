@@ -11,6 +11,9 @@ export async function getLatestPostsFromDb() {
       author: {
         select: { id: true, image: true, name: true },
       },
+      tags: {
+        select: { tagName: true },
+      },
     },
   });
 
@@ -26,9 +29,6 @@ export async function getLatestPostsFromDb() {
 
 export default async function handler(_req, res) {
   try {
-    await new Promise((r) => {
-      setTimeout(r, 500);
-    });
     const allLatestPosts = await getLatestPostsFromDb();
     res.status(200).json(allLatestPosts);
   } catch (err) {
