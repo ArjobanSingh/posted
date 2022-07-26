@@ -7,9 +7,19 @@ export async function getLatestPostsFromDb() {
     orderBy: {
       createdAt: "desc",
     },
-    include: {
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      bannerUrl: true,
+      createdAt: true,
+      published: true,
       author: {
-        select: { id: true, image: true, name: true },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
       },
       tags: {
         select: { tagName: true },
@@ -21,7 +31,6 @@ export async function getLatestPostsFromDb() {
   /* eslint-disable no-param-reassign */
   return allLatestPosts.map((it) => {
     it.createdAt = it.createdAt.getTime();
-    it.updatedAt = it.updatedAt.getTime();
     return it;
   });
   /* eslint-enable no-param-reassign */
@@ -33,6 +42,6 @@ export default async function handler(_req, res) {
     res.status(200).json(allLatestPosts);
   } catch (err) {
     console.log("database error!!!!!!!!!!!!!!!!!!!", err);
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 }

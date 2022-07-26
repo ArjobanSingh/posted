@@ -1,17 +1,14 @@
 import Head from "next/head";
 // import PropTypes from "prop-types";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import { POST_API } from "../constants/api-endpoints";
+import axiosInstance, { POST_API } from "../constants/api-config";
 import { getLatestPostsFromDb } from "./api/posts";
 import MainPageWrapper from "../components/MainPageWrapper";
 
 // const isBrowser = !!typeof window;
-// TODO: use axios maybe
 async function getLatestPosts() {
-  const response = await fetch(POST_API.LATEST_POSTS);
-  const json = await response.json();
-  if (response.status > 399) throw json || response.statusText;
-  return json;
+  const response = await axiosInstance.get(POST_API.LATEST_POSTS);
+  return response.data;
 }
 
 // will add on demand ISR to update this on new post

@@ -17,7 +17,6 @@ function Post(props) {
     tags,
     author: { name: authorName, image: authorImage, id: authorId },
   } = post;
-  console.log({ post });
   const router = useRouter();
 
   const [formattedDate, capitalizedTitle] = useMemo(
@@ -28,7 +27,7 @@ function Post(props) {
     [title, createdAt]
   );
 
-  const openPost = (e) => {
+  const openPost = () => {
     router.push(`/${slug}`);
   };
 
