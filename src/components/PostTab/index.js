@@ -25,10 +25,10 @@ function PostTab() {
         <li key={val.title}>
           <Link href={val.href}>
             <a
-              className={`text-lg border-b py-2 px-3 hover:text-black ${
+              className={`text-lg border-b py-2 px-3 hover:text-sky-500 ${
                 val.isActive(route.pathname)
-                  ? "border-black text-black font-bold"
-                  : "border-neutral-100"
+                  ? "border-white text-white font-bold"
+                  : "border-zinc-800"
               }`}
             >
               {val.title}

@@ -33,7 +33,7 @@ function Post(props) {
 
   return (
     <div
-      className="mb-2 w-full flex flex-col gap-2 p-4 bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer"
+      className="mb-2 w-full flex flex-col gap-2 p-4 bg-gray-800 border-b border-gray-600 cursor-pointer"
       role="button"
       onClick={openPost}
       tabIndex={0}
@@ -66,17 +66,17 @@ function Post(props) {
               <a className="text-sm font-medium">{authorName}</a>
             </Link>
           </div>
-          <p className="text-xs text-gray-700">{formattedDate}</p>
+          <p className="text-xs text-gray-500">{formattedDate}</p>
         </div>
       </div>
 
       <div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 w-[90%]"
         onClick={stopPropagation}
         onKeyDown={handleEnter(stopPropagation)}
         role="presentation"
       >
-        <h3 className="text-2xl font-bold hover:text-blue-500">
+        <h3 className="text-2xl font-bold  hover:text-sky-500">
           <Link href={`/${slug}`}>
             <a>{capitalizedTitle}</a>
           </Link>
@@ -87,7 +87,7 @@ function Post(props) {
         {tags.map((tag) => (
           <li
             key={tag.tagName}
-            className="border border-white px-1 hover:border-gray-300 rounded-md flex flex-col justify-center"
+            className="border border-gray-700 px-2 hover:border-gray-600 rounded-md flex flex-col justify-center"
             onClick={stopPropagation}
             onKeyDown={handleEnter(stopPropagation)}
             role="presentation"

@@ -2,12 +2,12 @@ import Head from "next/head";
 // import PropTypes from "prop-types";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import axiosInstance, { POST_API } from "../constants/api-config";
-import { getLatestPostsFromDb } from "./api/posts";
+import { getLatestPostsFromDb } from "./api/post";
 import MainPageWrapper from "../components/MainPageWrapper";
 
 // const isBrowser = !!typeof window;
 async function getLatestPosts() {
-  const response = await axiosInstance.get(POST_API.LATEST_POSTS);
+  const response = await axiosInstance.get(POST_API.POST);
   return response.data;
 }
 

@@ -6,7 +6,7 @@ import MaxWidthContainer from "../common/MaxWidthContainer";
 
 function Header(props) {
   return (
-    <header className="sticky top-0 left-0 right-0 shadow-sm bg-white z-20">
+    <header className="sticky top-0 left-0 right-0 shadow-sm bg-gray-900 z-20">
       <MaxWidthContainer>
         <div className="flex justify-between items-center px-4 py-2 h-14">
           <div className="flex items-center h-full">
@@ -36,10 +36,10 @@ function Header(props) {
               <div className="hidden md:flex relative items-center h-full">
                 <input
                   type="text"
-                  className="border border-gray-300 h-full w-80 rounded pl-2 pr-10 focus:outline-blue-500"
+                  className="border bg-inherit border-gray-700 h-full w-96 rounded pl-2 pr-10 focus:outline-none"
                   placeholder="Search..."
                 />
-                <div className="absolute text-2xl right-2">
+                <div className="absolute text-2xl right-2 cursor-pointer hover:text-sky-500">
                   <SearchIcon />
                 </div>
               </div>
@@ -50,7 +50,7 @@ function Header(props) {
             <Link href="/search">
               <a
                 type="button"
-                className="md:hidden hover:text-blue-500 p-2 hover:bg-blue-100 rounded text-2xl"
+                className="md:hidden hover:text-sky-500 p-2 hover:bg-gray-800 rounded text-2xl"
               >
                 <SearchIcon />
               </a>

@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use(
 );
 
 export const POST_API = {
-  LATEST_POSTS: "/posts",
+  POST: "/post",
 };
 
 export const USER_API = {};
