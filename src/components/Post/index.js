@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { DEFAULT_BANNER_URL } from "../../constants/images";
 import { handleEnter, stopPropagation } from "../../lib/common";
 
-// TODO: add placeholder image, and change img to Image
+// TODO: add placeholder image
 function Post(props) {
   const { post } = props;
   const {
